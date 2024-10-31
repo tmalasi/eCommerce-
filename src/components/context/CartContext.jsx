@@ -45,9 +45,30 @@ export const CartProvider = ({ children }) => {
             }
         });
     };
+    
+    const updateCart = (product, quantity) => {
+        setCart((prevCart) => {
+            const existingProduct = prevCart.find(
+                (item) => item.name === product.name
+            );
+            if (existingProduct) {
+                return prevCart.map((item) =>
+                    item.name === product.name
+                        ? { ...item, quantity: quantity }
+                        : item
+                );
+            } else {
+                return [...prevCart, { ...product, quantity }];
+            }
+        });
+    };
+    const clearCart = () => {
+        setCart([]); // Only clear the cart state
+        localStorage.removeItem('cart'); // Optionally clear local storage
+      };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart , removeFromCart}}>
+        <CartContext.Provider value={{ cart, addToCart , removeFromCart, updateCart, clearCart}}>
             {children}
         </CartContext.Provider>
     );

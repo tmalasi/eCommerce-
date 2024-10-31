@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
+import './CartPage.css';
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
-  const [price, setPrice]= useState();
+  const { cart, addToCart, removeFromCart,clearCart } = useContext(CartContext);
   const [totalPrice, setTotalPrice]=useState(0);
+  const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
     addToCart(product, 1);
@@ -22,26 +24,36 @@ const CartPage = () => {
     setTotalPrice(total); 
   }, [cart]);
 
+  const handleCheckout =()=>{
+    navigate('/checkout');
+    clearCart();
+  }
   return (
-    <div>
-      <ul>
+    <div className="cart-page">
+      <ul className="cart-list">
         {cart.map((product) => (
-          <li key={product.id}>
-            <p>
-              {product.name} - <strong>Price: ${product.price * product.quantity}</strong>
-            </p>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px"}}>
-              <button onClick={() => handleRemoveFromCart(product)}>-</button>
-              <span style={{ border:"1px solid black", padding:"7px"}}>{product.quantity}</span>
-              <button onClick={() => handleAddToCart(product)}>+</button>
+          <li key={product.id} className="cart-item">
+            <img src={product.imageSrc} alt={product.name} className="product-image" />
+            <div className="product-details">
+              <p className="product-name">{product.name}</p>
+              <p className="product-price">Price: ${product.price * product.quantity}</p>
+              <div className="quantity-controls">
+                <button onClick={() => handleRemoveFromCart(product)}>-</button>
+                <span>{product.quantity}</span>
+                <button onClick={() => handleAddToCart(product)}>+</button>
+              </div>
             </div>
           </li>
         ))}
       </ul>
-      <h3>Total Price of Cart: ${totalPrice}</h3>
+      <h3 className="total-price">Total Price of Cart: ${totalPrice.toFixed(2)}</h3>
+
+      <button onClick={
+              clearCart
+            } >Clear Cart</button>
+      <button onClick={handleCheckout}>Checkout</button>
     </div>
   );
-
 };
 
 export default CartPage;
