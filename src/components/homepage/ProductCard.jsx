@@ -3,24 +3,19 @@ import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router";
 
 const ProductCard = ({ product }) => {
-  const { cart, updateCart } = useContext(CartContext);
+  const { getItemQuantity, updateCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const cartItem = cart.find((item) => item.id === product.id);
-  const [quantity, setQuantity] = useState(cartItem ? cartItem.quantity : 0);
+  //to get the quantity of the product if it is on the cart 
+  const initialQuantity = getItemQuantity(product.id);
+  const [quantity, setQuantity] = useState(initialQuantity);
 
+  //to make sure it is sync everytime quantity changes
   useEffect(() => {
-    if (cartItem) {
-      setQuantity(cartItem.quantity);
-    }
-  }, [cart, cartItem]);
+    setQuantity(getItemQuantity(product.id));
+  }, [product.id, getItemQuantity]);
 
-  const handleUpdateCart = () => {
-    updateCart(product, quantity);
-    setQuantity(0);
-  };
-
-   return (
+  return (
     <div className="product-card">
       <div onClick={() => navigate(`/details/${product.id}`)}>
         <img src={product.imageSrc} alt={product.name} />
@@ -30,23 +25,24 @@ const ProductCard = ({ product }) => {
       <div>
         <button
           onClick={() => setQuantity(quantity - 1)}
-          disabled={quantity === 0} // Disable if quantity is 0
+          disabled={quantity === 0}
         >
           -
         </button>
         <span
           style={{
-            border: "1px solid black",
             padding: "7px",
-            color: cartItem ? "green" : "black", // Green if product is in cart
-            fontWeight: "bolder"
+            color: (initialQuantity && initialQuantity==quantity) ? "green" :  "var(--text-color)",
+            fontWeight: "bolder",
           }}
         >
           {quantity}
         </span>
         <button onClick={() => setQuantity(quantity + 1)}>+</button>
       </div>
-      <button onClick={handleUpdateCart}>{cartItem ? "Update Cart" : "Add to Cart"}</button>
+      <button onClick={()=>updateCart(product,quantity)}>
+        {initialQuantity ? "Update Cart" : "Add to Cart"}
+      </button>
     </div>
   );
 };

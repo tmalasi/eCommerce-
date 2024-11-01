@@ -1,23 +1,21 @@
-
 .light {
   --bg-color: #ffffff;
   --text-color: #020202d6;
   --card-bg-color: #f8f9fa;
-  --button-bg-color: #007bff;
+  --button-bg-color: #81409b;
   --button-text-color: #ffffff;
-  --box-shadow-color:rgba(39, 37, 37, 0.669);
-  --nav-button-color:#045cba;
-
+  --box-shadow-color: rgba(39, 37, 37, 0.669);
+  --nav-button-color: #61207a;
 }
 
 .dark {
   --bg-color: #020202d6;
   --text-color: #ffffff;
   --card-bg-color: #020202d6;
-  --button-bg-color: #17a2b8;
+  --button-bg-color: #b680cb ;
   --button-text-color: #ffffff;
-  --box-shadow-color:rgba(255, 255, 255, 0.493);
-  --nav-button-color:#1aceea;
+  --box-shadow-color: rgba(255, 255, 255, 0.493);
+  --nav-button-color: #c39bd3 ;
 }
 a {
   font-weight: 500;
@@ -25,7 +23,7 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #007bff;
+  color: var(--nav-button-color);
 }
 
 body {
@@ -37,7 +35,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   margin: 0;
-  color: var(--text-color);
+  color: var(--button-bg-color);
 }
 
 button {
@@ -51,6 +49,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
   color: var(--button-text-color);
+  margin: 5px;
 }
 button:hover {
   border-color: #646cff;
@@ -59,4 +58,3 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
