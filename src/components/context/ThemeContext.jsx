@@ -7,6 +7,12 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const newTheme = "light";
+      localStorage.setItem("theme", newTheme);
+    }
     setTheme(savedTheme);
   }, []);
 
