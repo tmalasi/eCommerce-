@@ -42,7 +42,7 @@ const CartPage = () => {
         Total Price of Cart: ${totalPrice.toFixed(2)}
       </h3>
 
-      <button onClick={clearCart}>Clear Cart</button>
+      <button onClick={clearCart} style={{backgroundColor:"red"}}>Clear Cart</button>
       <button onClick={handleCheckout}>Checkout</button>
     </div>
   );
