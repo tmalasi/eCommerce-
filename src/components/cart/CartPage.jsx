@@ -30,9 +30,9 @@ const CartPage = () => {
                 Price: ${product.price * product.quantity}
               </p>
               <div className="quantity-controls">
-                <button onClick={() => addToCart(product)}>-</button>
+                <button onClick={() => removeFromCart(product)}>-</button>
                 <span>{product.quantity}</span>
-                <button onClick={() => removeFromCart(product)}>+</button>
+                <button onClick={() => addToCart(product)}>+</button>
               </div>
             </div>
           </li>
